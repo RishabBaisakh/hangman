@@ -1,3 +1,7 @@
-import { name } from "./hangman";
+import Hangman, { name } from "./Hangman";
 
-// console.log(name);
+window.onload = () => {
+  var hangman = new Hangman();
+  console.log("hangman => ", hangman);
+  hangman.start();
+};

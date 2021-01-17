@@ -4,5 +4,31 @@
 
 .mainHeading {
   text-align: center;
-  margin: 50px;
+  margin: 30px;
+  font-size: 70px;
+}
+
+.gamebody {
+  background-color: aqua;
+  height: 70vh;
+  margin: 20px;
+}
+
+.gamebody__top {
+  display: flex;
+  height: 80%;
+}
+
+.gamebody__guessArea {
+  flex: 0.7;
+  margin: 20px;
+}
+
+.gamebody__hangman {
+  flex: 0.3;
+  margin: 20px;
+}
+
+.gamebody__bottom {
+  margin: 20px;
 }
