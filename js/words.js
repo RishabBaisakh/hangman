@@ -1,12 +1,12 @@
 const words = [
   "Canada",
-  "Peanut Butter",
+  "PeanutButter",
   "Quebec",
   "Cashew",
   "Australia",
   "India",
   "Basketball",
-  "Coca Cola",
+  "CocaCola",
   "Pizza",
 ];
 

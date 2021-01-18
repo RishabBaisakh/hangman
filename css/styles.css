@@ -2,6 +2,12 @@
   margin: 0;
 }
 
+html,
+body {
+  background-color: crimson;
+  color: white;
+}
+
 .mainHeading {
   text-align: center;
   margin: 30px;
@@ -9,7 +15,6 @@
 }
 
 .gamebody {
-  background-color: aqua;
   height: 70vh;
   margin: 20px;
 }
@@ -22,13 +27,33 @@
 .gamebody__guessArea {
   flex: 0.7;
   margin: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 70px;
+  letter-spacing: 15px;
 }
 
 .gamebody__hangman {
   flex: 0.3;
   margin: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 70px;
 }
 
 .gamebody__bottom {
-  margin: 20px;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 20px;
+  border: 10px solid white;
+}
+
+#button {
+  padding: 5px;
+  font-size: 25px;
+  border: 2px solid white;
+  box-shadow: 1px 1px 1px white;
+  cursor: pointer;
 }
