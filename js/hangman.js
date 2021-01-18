@@ -5,7 +5,7 @@ import words from "./words";
 function Hangman() {
   this.words = words;
   this.masterWord = "";
-  this.guessWord = "";
+  this.guessWord = [];
   this.numberOfChances = 7;
 }
 
@@ -20,7 +20,7 @@ Hangman.prototype.setup = function () {
   this.masterWord = this.words[
     Math.floor(Math.random() * this.words.length)
   ].toUpperCase();
-  this.guessWord = "_".repeat(this.masterWord.length);
+  for (let i = 0; i < this.masterWord.length; i++) this.guessWord[i] = "_";
 
   this.renderGuessWord();
 };
@@ -73,28 +73,47 @@ Hangman.prototype.addButtonEventListener = function () {
 };
 
 Hangman.prototype.renderGuessWord = function () {
+  let guessTemplate = "";
   const guessArea = document.getElementById("guessArea");
-  guessArea.innerHTML = this.guessWord;
+
+  for (let i = 0; i < this.guessWord.length; i++)
+    guessTemplate += this.guessWord[i];
+
+  guessArea.innerHTML = guessTemplate;
 
   console.log("masteword => ", this.masterWord);
 };
 
 Hangman.prototype.guessCheck = function (guessLetter) {
   if (this.masterWord.includes(guessLetter)) {
-    let indexArray = [];
-    indexArray = this.getIndexesOfGuessedLetter(guessLetter, indexArray);
+    this.replaceGuessedLetter(guessLetter);
   } else {
     this.renderNumberOfChances(this.numberOfChances--);
   }
 };
 
-Hangman.prototype.getIndexesOfGuessedLetter = function (
-  guessLetter,
-  indexArray,
-  index = -1
-) {
-  index = this.masterWord.indexOf(guessLetter);
-  console.log("index =>", index);
+Hangman.prototype.replaceGuessedLetter = function (guessLetter) {
+  let word = this.masterWord;
+  let index = -2;
+  let startIndex = 0;
+
+  while (index !== -1) {
+    index = word.indexOf(guessLetter, startIndex);
+    this.guessWord[index] = guessLetter;
+
+    startIndex = index + 1;
+  }
+  this.renderGuessWord();
+  this.completionCheck();
+};
+
+Hangman.prototype.completionCheck = function () {
+  if (this.guessWord.filter((letter) => letter === "_").length == 0) {
+    setTimeout(() => {
+      alert("Yaaay!");
+      this.restart();
+    }, 500);
+  }
 };
 
 export default Hangman;
