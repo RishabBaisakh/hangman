@@ -7,6 +7,7 @@ function Hangman() {
   this.masterWord = "";
   this.guessWord = [];
   this.numberOfChances = 7;
+  this.wrongSelections = [];
 }
 
 Hangman.prototype.start = function () {
@@ -66,9 +67,7 @@ Hangman.prototype.addButtonEventListener = function () {
   let buttonElements = document.querySelectorAll("#button");
 
   buttonElements.forEach((element) => {
-    element.addEventListener("click", () => {
-      this.guessCheck(element.innerHTML);
-    });
+    element.addEventListener("click", () => this.guessCheck(element));
   });
 };
 
@@ -80,15 +79,21 @@ Hangman.prototype.renderGuessWord = function () {
     guessTemplate += this.guessWord[i];
 
   guessArea.innerHTML = guessTemplate;
-
-  console.log("masteword => ", this.masterWord);
 };
 
-Hangman.prototype.guessCheck = function (guessLetter) {
+Hangman.prototype.guessCheck = function (element) {
+  const guessLetter = element.innerHTML;
+
   if (this.masterWord.includes(guessLetter)) {
     this.replaceGuessedLetter(guessLetter);
   } else {
+    if (this.wrongSelections.includes(guessLetter)) {
+      return;
+    }
+
     this.renderNumberOfChances(this.numberOfChances--);
+    element.style.opacity = "0.5";
+    this.wrongSelections.push(guessLetter);
   }
 };
 
@@ -110,7 +115,7 @@ Hangman.prototype.replaceGuessedLetter = function (guessLetter) {
 Hangman.prototype.completionCheck = function () {
   if (this.guessWord.filter((letter) => letter === "_").length == 0) {
     setTimeout(() => {
-      alert("Yaaay!");
+      alert("Yaaay! Congo!");
       this.restart();
     }, 500);
   }
